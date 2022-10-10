@@ -1,0 +1,16 @@
+{
+  "name": "playwright-template-ts",
+  "version": "1.0.0",
+  "description": "Test automation template for Davra platform applications",
+  "main": "playwright.config.ts",
+  "scripts": {
+    "test": "npx playwright test"
+  },
+  "keywords": [],
+  "author": "Davra",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.26.0",
+    "moment": "^2.29.4"
+  }
+}
