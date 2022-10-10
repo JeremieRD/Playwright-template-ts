@@ -99,7 +99,7 @@ npx playwright test --headed --project=chromium --workers 1
 ### Parallel execution
 
 Tests run in parallel at file level, meaning that tests within the same file will not run in parallel unless specified otherwise. \
-This can be easily done by `.parallel` to the `test.describe` block.
+This can be easily done by adding `.parallel` to the `test.describe` block.
 
 The number of tests running concurrently (workers) can be configured in the `playwright.config.ts` file:
 
@@ -164,7 +164,7 @@ Apart from the [default fixtures](https://playwright.dev/docs/test-fixtures#buil
 - `noAuthPage` - Like the default `page` fixture, but without authentication
 - `appRequestNoAuth` - `appRequest` without authentication
 - `testDevice` - creates a unique device and deletes it after the test
-  
+
 Page Object fixtures:
 
 - `navMenu`
@@ -195,12 +195,12 @@ Page Object Model can be implemented with Playwright. This project contains some
 
 ```ts
 // fixtures.ts
-  page: async ({ page }, use) => {
-    const extendedPage: PageWithPageObjects = Object.assign(page, {
-      objects: new PageObjects(page),
-    });
-    await use(extendedPage);
-  };
+page: async ({ page }, use) => {
+  const extendedPage: PageWithPageObjects = Object.assign(page, {
+    objects: new PageObjects(page),
+  });
+  await use(extendedPage);
+};
 ```
 
 That means any `page` can instantiate Page Objects for itself.
@@ -258,17 +258,20 @@ Additional reporters can be configured in `playwright.config.ts`, full list avai
 Once you [create a repository using this template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template), you can integrate your tests with CI
 
 ### Jenkins & Docker
+
 This project contains a Jenkinsfile that can be used to run tests inside a Docker container on your Jenkins worker.
 In order to set up a pipeline, you will first need to configure the environment variables and credentials.
 
 #### Credentials
 
 The Jenkinsfile contains a reference to admin credentials - `SAMPLE_APP_CREDENTIALS`:
+
 ```groovy
 withCredentials([
         usernamePassword(credentialsId: 'SAMPLE_APP_CREDENTIALS', passwordVariable: 'ADMIN_PASSWORD', usernameVariable: 'ADMIN_USERNAME'),
 ]) {
 ```
+
 [Configure admin credentials](https://www.jenkins.io/doc/book/using/using-credentials/#configuring-credentials) on Jenkins and replace `SAMPLE_APP_CREDENTIALS` in the Jenkinsfile with the name you chose when configuring those credentials.
 
 #### Environment variables
@@ -291,30 +294,24 @@ docker.image('mcr.microsoft.com/playwright:v1.26.0-focal')
 
 1. Open Jenkins and select `New Item` from the menu
 2. Select `Pipeline` and give it a name, then click 'OK'<br>
-<img src="CI/create-pipeline.png" alt="create pipeline" width=600>
+   <img src="CI/create-pipeline.png" alt="create pipeline" width=600>
 
 3. Select `This project is parameterised` and add a string parameter<br>
-<img src="CI/add-parameter.png" alt="parametrise" width=200>
+   <img src="CI/add-parameter.png" alt="parametrise" width=200>
 
 4. Set 'Name' to `BRANCH` and 'Default Value' to `main`<br>
-<img src="CI/configure-parameter.png" alt="parameter config" width=600>
+   <img src="CI/configure-parameter.png" alt="parameter config" width=600>
 
-5. Add another parameter with 'Name': `WORKERS` and 'Default Value': `1`
-6. From the pipeline definition dropdown, select `Pipeline script from SCM`
-7. Select `git` SCM
-8. Provide the GitHub credentials and url to your repository
-9.  In 'Branches to build', enter `*/${BRANCH}`<br>
-<img src="CI/git-config.png" alt="git config" width=600>
+5. From the pipeline definition dropdown, select `Pipeline script from SCM`
+6. Select `git` SCM
+7. Provide the GitHub credentials and url to your repository
+8. In 'Branches to build', enter `*/${BRANCH}`<br>
+   <img src="CI/git-config.png" alt="git config" width=600>
 
-10. Save the pipeline configuration
+9. Save the pipeline configuration
 
-That's it! The pipeline is now configured to take 2 parameters:
-- `BRANCH` allows you to specify which branch of your repository should be used when running tests
-- `WORKERS` specifies the maximum number of concurrent tests. With the default value of 1, parallel execution is disabled. Adjust this as needed. Once you find what number works best for you, it can be hardcoded as an environment variable or set as default.
+That's it! Your pipeline is ready to run the first build. Setting the `BRANCH` parameter allows you to specify which branch should be used for each build.
 
 ### Other CI configurations
+
 For running Playwright on other CI environments, see example [CI configurations](https://playwright.dev/docs/ci#ci-configurations)
-
-<div class='container'>
-
-</div>

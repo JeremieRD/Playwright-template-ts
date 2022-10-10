@@ -14,7 +14,7 @@ node {
                                 '-e "BASE_URL=https://your-app-url.apps.davra.com/" ' +
                                 '-e "AUTH_METHOD=OAuth"') { c ->
                             sh 'npm install'
-                            sh 'npx playwright test --workers ${WORKERS}'
+                            sh 'npm test'
                         }
             }
         }
