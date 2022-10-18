@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "@playwright/test": "^1.26.0",
+    "lighthouse": "^9.6.7",
     "moment": "^2.29.4"
   }
 }
