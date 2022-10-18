@@ -20,6 +20,7 @@
     - [Global setup and teardown](#global-setup-and-teardown)
     - [Fixtures](#fixtures)
     - [Page Objects](#page-objects)
+    - [Visual testing](#visual-testing)
     - [Reporting](#reporting)
   - [CI](#ci)
     - [Jenkins & Docker](#jenkins--docker)
@@ -235,6 +236,25 @@ test("This tests starts at the Devices page", async ({ devicesPage }) => {
 });
 ```
 
+### Visual testing
+Playwright can compare images to verify pixel difference is within acceptable range. See `tests/visual-assertions.spec.ts` for how this can be implemented.
+
+If you need to generate new snapshots, use Docker to create them in an environment that matches your CI. If the tests will run inside a Docker container or on Linux, you can use Playwright's Docker image to generate snapshots.
+
+1. Start by running a new container. Make sure image version matches your Playwright version (`1.26` by default)
+      ```bash
+      docker run --rm --network host -v $(pwd):/playwright/ -w /playwright/ -it mcr.microsoft.com/playwright:v1.26.0-focal /bin/bash
+      ```
+2. [Set up environment variables](#environment-variables) inside the container
+3. Run tests and generate new snapshots
+      ```bash
+      export CI=true  # To include visual assertions in the test suite
+      npm install
+      npx playwright test --update-snapshots
+      ```
+4. Exit the container
+5. Commit and push generated snapshots
+   
 ### Reporting
 
 Two reporters are enabled by default:
