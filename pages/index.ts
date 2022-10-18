@@ -1,5 +1,6 @@
 import { Page } from "@playwright/test";
 import { PageWithPageObjects } from "../types";
+// IMPORTS TO BE DELETED
 import DeviceDetailsPage from "./deviceDetails";
 import DevicesPage from "./devicesPage";
 import GraphPage from "./graphPage";
@@ -14,6 +15,7 @@ export default class PageObjects {
     this.page = <PageWithPageObjects>page;
   }
 
+  // GETTERS TO BE DELETED
   get loginPage() { return new LoginPage(this.page) };
   get navMenu() { return new NavMenu(this.page) };
   get graphPage() { return new GraphPage(this.page) };

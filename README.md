@@ -38,7 +38,7 @@ This is a sample [Playwright](https://playwright.dev/) & TypeScript project for 
 
 - Compatible OS: Windows, MacOS 11 (Big Sur) or above, Linux (Ubuntu 18.04, 20.04 or 22.04)
 - Node v14 or above
-- Running [Davra sample application](https://some-repo.github.com)
+- Running [Davra sample application](https://github.com/Davra/sample-iot-app)
 
 If you do not meet the OS requirement, you can still [run the tests using Playwright's official Docker image](https://playwright.dev/docs/docker#usage)
 
@@ -101,17 +101,16 @@ npx playwright test --headed --project=chromium --workers 1
 Tests run in parallel at file level, meaning that tests within the same file will not run in parallel unless specified otherwise. \
 This can be easily done by adding `.parallel` to the `test.describe` block.
 
-The number of tests running concurrently (workers) can be configured in the `playwright.config.ts` file:
+The number of tests running concurrently (workers) can be configured in the `playwright.config.ts` file. Different values can be used for running tests locally and on CI:
 
 ```ts
   workers: process.env.CI ? 1 : undefined,
 ```
 
-The first value (1) is the number of workers to use when running on CI, the second one (undefined) for running locally.
 Another way to run the tests with a specific number of workers:
 
 ```sh
-npx playwright test --workers 10 # Adjust this number as needed
+npx playwright test --workers 10
 ```
 
 The desired number of workers will depend on the resources on the machine running the tests and the performance of the application under test. \
@@ -286,7 +285,7 @@ docker.image('mcr.microsoft.com/playwright:v1.26.0-focal')
                 '-e "BASE_URL=https://your-app=url.apps.davra.com/" ' +     // and this
                 '-e "AUTH_METHOD=OAuth"') { c ->                            // and this if not using OAuth
             sh 'npm install'
-            sh 'npx playwright test --workers ${WORKERS}'   // Variables like ${WORKERS} can be used to parametrise the pipeline
+            sh 'npm test'
         }
 ```
 

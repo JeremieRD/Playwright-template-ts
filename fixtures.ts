@@ -47,12 +47,6 @@ export const test = base.extend<ExtendedPlaywrightTestArgs>({
     await use(extendedPage);
   },
 
-  navMenu: async ({ page }, use) => {
-    const navMenu = page.objects.navMenu;
-    await navMenu.goto();
-    await use(navMenu);
-  },
-
   noAuthPage: async ({ browser }, use) => {
     const page: Page = await browser.newPage({
       storageState: undefined,
@@ -84,6 +78,14 @@ export const test = base.extend<ExtendedPlaywrightTestArgs>({
     await apiUtils.crud.deleteDevice(device.UUID);
   },
 
+  // TO BE DELETED
+  navMenu: async ({ page }, use) => {
+    const navMenu = page.objects.navMenu;
+    await navMenu.goto();
+    await use(navMenu);
+  },
+
+  // TO BE DELETED
   // A fixture can provide more than 1 value
   deviceDetailsPage: async ({ page, testDevice }, use) => {
     const detailsPage = page.objects.deviceDetailsPage;
@@ -91,6 +93,7 @@ export const test = base.extend<ExtendedPlaywrightTestArgs>({
     await use({ detailsPage, testDevice });
   },
 
+  // TO BE DELETED
   devicesPage: async ({ page }, use) => {
     const devicesPage = page.objects.devicesPage;
     await devicesPage.goto();
