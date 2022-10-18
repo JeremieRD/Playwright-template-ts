@@ -23,3 +23,6 @@ typings/
 /playwright-report/
 /playwright/.cache/
 authState.json
+
+# Persistent context
+lighthouseContext/
