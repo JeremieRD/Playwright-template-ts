@@ -241,9 +241,9 @@ Playwright can compare images to verify pixel difference is within acceptable ra
 
 If you need to generate new snapshots, use Docker to create them in an environment that matches your CI. If the tests will run inside a Docker container or on Linux, you can use Playwright's Docker image to generate snapshots.
 
-1. Start by running a new container. Make sure image version matches your Playwright version (`1.26` by default)
+1. Start by running a new container. Make sure image version matches your Playwright version (`1.27` by default)
       ```bash
-      docker run --rm --network host -v $(pwd):/playwright/ -w /playwright/ -it mcr.microsoft.com/playwright:v1.26.0-focal /bin/bash
+      docker run --rm --network host -v $(pwd):/playwright/ -w /playwright/ -it mcr.microsoft.com/playwright:v1.27.0-focal /bin/bash
       ```
 2. [Set up environment variables](#environment-variables) inside the container
 3. Run tests and generate new snapshots
@@ -299,7 +299,7 @@ withCredentials([
 environment and push the changes. If you prefer not to use hardcoded values or expect to run the tests on more than one environment, you can parametrise the Jenkins job instead (see next step)
 
 ```groovy
-docker.image('mcr.microsoft.com/playwright:v1.26.0-focal')
+docker.image('mcr.microsoft.com/playwright:v1.27.0-focal')
         .inside('--ipc=host --init ' +
                 '-e "PLATFORM_URL=https://your-platform-url.davra.com" ' +  // Replace this
                 '-e "BASE_URL=https://your-app=url.apps.davra.com/" ' +     // and this
