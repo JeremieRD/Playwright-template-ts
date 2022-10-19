@@ -39,7 +39,7 @@ This is a sample [Playwright](https://playwright.dev/) & TypeScript project for 
 
 - Compatible OS: Windows, MacOS 11 (Big Sur) or above, Linux (Ubuntu 18.04, 20.04 or 22.04)
 - Node v14 or above
-- Running [Davra sample application](https://github.com/Davra/sample-iot-app)
+- Running [Davra sample application](https://github.com/Davra/iot-app-template)
 
 If you do not meet the OS requirement, you can still [run the tests using Playwright's official Docker image](https://playwright.dev/docs/docker#usage)
 
