@@ -21,6 +21,7 @@
     - [Fixtures](#fixtures)
     - [Page Objects](#page-objects)
     - [Visual testing](#visual-testing)
+    - [Lighthouse](#lighthouse)
     - [Reporting](#reporting)
   - [CI](#ci)
     - [Jenkins & Docker](#jenkins--docker)
@@ -100,7 +101,7 @@ npx playwright test --headed --project=chromium --workers 1
 ### Parallel execution
 
 Tests run in parallel at file level, meaning that tests within the same file will not run in parallel unless specified otherwise. \
-This can be easily done by adding `.parallel` to the `test.describe` block.
+This can be easily done by adding `.parallel` to the `test.describe` block (see `tests/serial-or-parallel-execution.spec.ts`).
 
 The number of tests running concurrently (workers) can be configured in the `playwright.config.ts` file. Different values can be used for running tests locally and on CI:
 
@@ -237,7 +238,7 @@ test("This tests starts at the Devices page", async ({ devicesPage }) => {
 ```
 
 ### Visual testing
-Playwright can compare images to verify pixel difference is within acceptable range. See `tests/visual-assertions.spec.ts` for how this can be implemented.
+Playwright can compare images to verify pixel difference is within acceptable limits. See `tests/visual-assertions.spec.ts` for how this can be implemented. Snapshots will vary slightly between browsers and operating systems, so you will need to maintain a set of snapshots for every environment the tests run on. For that reason, we recommend only running visual tests on CI.
 
 If you need to generate new snapshots, use Docker to create them in an environment that matches your CI. If the tests will run inside a Docker container or on Linux, you can use Playwright's Docker image to generate snapshots.
 
@@ -254,7 +255,11 @@ If you need to generate new snapshots, use Docker to create them in an environme
       ```
 4. Exit the container
 5. Commit and push generated snapshots
-   
+
+### Lighthouse
+This project integrates [Lighthouse](https://github.com/GoogleChrome/lighthouse) with Playwright to run UI performance audits. A persistent context with an open debugging port is required for Lighthouse to run - `tests/lighthouse-performance.spec.ts` contains an example of how this can be set up. The sample test runs a UI performance audit and checks if the score is above the set threshold, but Lighthouse can also be used to gather more metrics. For advanced use cases, read more about [running Lighthouse programatically](https://github.com/GoogleChrome/lighthouse/blob/main/docs/readme.md#using-programmatically).
+
+Keep in mind that your results will vary between runs, so expecting exact values will lead to unreliable tests. Set an acceptable threshold instead. 
 ### Reporting
 
 Two reporters are enabled by default:
